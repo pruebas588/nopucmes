@@ -735,17 +735,6 @@ function selectUser(user) {
     document.getElementById('pinModal')
         .classList.remove('hidden');
 
-    document.getElementById('pinInput').blur();
-
-        window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'instant'
-        });
-
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
-
     document.getElementById('pinTitle').textContent =
         user === 'Noe'
             ? 'Hola Noe 💕'
@@ -838,10 +827,31 @@ async function loginWithPin() {
     currentUser = selectedLoginUser;
 
     document.getElementById('pinModal')
-        .classList.add('hidden');
+    .classList.add('hidden');
+
+    pinInput.blur();
 
     document.getElementById('userName').textContent =
         currentUser;
+
+    applyTheme(currentUser);
+
+    /* Volver siempre al principio de la página en móvil */
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }, 100);
+
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+    }, 500);
 
     applyTheme(currentUser);
 
@@ -1321,7 +1331,7 @@ function sendToWhatsApp(proposal) {
     }
 
     const message =
-        '¡Tengo una propuesta para ti! 💕 Entra en Our Dates para verla';
+        '¡Tengo una propuesta para ti! 💕 Entra en Our Dates para verla: https://pruebas588.github.io/nopucmes/';
 
     const url =
         `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
