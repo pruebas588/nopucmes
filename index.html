@@ -6,35 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Dates - Noe & Dani 💕</title>
 
-
-<!-- Supabase -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
     :root {
         --primary-color: #ec4899;
         --primary-light: #f472b6;
-        --bg-gradient: linear-gradient(135deg, #fce7f3 0%, #fef3c7 50%, #fce7f3 100%);
+        --bg-gradient: linear-gradient(
+            135deg,
+            #fce7f3 0%,
+            #fef3c7 50%,
+            #fce7f3 100%
+        );
         --accent-color: #be123c;
     }
 
     body.theme-dani {
         --primary-color: #3b82f6;
         --primary-light: #60a5fa;
-        --bg-gradient: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 50%, #dbeafe 100%);
+        --bg-gradient: linear-gradient(
+            135deg,
+            #dbeafe 0%,
+            #e0e7ff 50%,
+            #dbeafe 100%
+        );
         --accent-color: #1e40af;
     }
 
+    html {
+        scroll-behavior: auto;
+    }
+
     body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            'Segoe UI',
+            'Roboto',
+            sans-serif;
         background: var(--bg-gradient);
         min-height: 100vh;
         padding: 16px;
+        overflow-x: hidden;
     }
 
-    .container { max-width: 480px; margin: 0 auto; }
+    .container {
+        max-width: 480px;
+        margin: 0 auto;
+    }
 
     .header {
         background: white;
@@ -45,9 +71,21 @@
         box-shadow: 0 4px 6px rgba(0,0,0,.1);
     }
 
-    .header h1 { color: var(--accent-color); font-size: 28px; margin-bottom: 8px; }
-    .user-info { color: #666; font-size: 14px; }
-    .user-info strong { color: var(--accent-color); font-size: 16px; }
+    .header h1 {
+        color: var(--accent-color);
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .user-info {
+        color: #666;
+        font-size: 14px;
+    }
+
+    .user-info strong {
+        color: var(--accent-color);
+        font-size: 16px;
+    }
 
     .tabs {
         display: flex;
@@ -72,12 +110,22 @@
     }
 
     .tab-btn.active {
-        background: linear-gradient(90deg,var(--primary-color),var(--primary-light));
+        background:
+            linear-gradient(
+                90deg,
+                var(--primary-color),
+                var(--primary-light)
+            );
         color: white;
     }
 
-    .section { display: none; }
-    .section.active { display: block; }
+    .section {
+        display: none;
+    }
+
+    .section.active {
+        display: block;
+    }
 
     .card {
         background: white;
@@ -113,7 +161,9 @@
         align-items: center;
     }
 
-    .card-details strong { color: #1f2937; }
+    .card-details strong {
+        color: #1f2937;
+    }
 
     .status-badge {
         display: inline-block;
@@ -123,9 +173,20 @@
         font-weight: 600;
     }
 
-    .status-pending { background: #fef3c7; color: #92400e; }
-    .status-accepted { background: #dcfce7; color: #15803d; }
-    .status-rejected { background: #fee2e2; color: #991b1b; }
+    .status-pending {
+        background: #fef3c7;
+        color: #92400e;
+    }
+
+    .status-accepted {
+        background: #dcfce7;
+        color: #15803d;
+    }
+
+    .status-rejected {
+        background: #fee2e2;
+        color: #991b1b;
+    }
 
     .card-actions {
         display: flex;
@@ -143,14 +204,30 @@
         cursor: pointer;
     }
 
-    .btn-accept { background: #d1fae5; color: #065f46; }
-    .btn-reject { background: #fee2e2; color: #991b1b; }
-    .btn-whatsapp { background: #25d366; color: white; }
+    .btn-accept {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    .btn-reject {
+        background: #fee2e2;
+        color: #991b1b;
+    }
+
+    .btn-whatsapp {
+        background: #25d366;
+        color: white;
+    }
 
     .btn-new {
         width: 100%;
         padding: 16px;
-        background: linear-gradient(90deg,var(--primary-color),var(--primary-light));
+        background:
+            linear-gradient(
+                90deg,
+                var(--primary-color),
+                var(--primary-light)
+            );
         color: white;
         border: none;
         border-radius: 12px;
@@ -220,7 +297,9 @@
         font-size: 18px;
     }
 
-    .form-group { margin-bottom: 16px; }
+    .form-group {
+        margin-bottom: 16px;
+    }
 
     .form-label {
         display: block;
@@ -273,7 +352,12 @@
     .btn-submit {
         width: 100%;
         padding: 14px;
-        background: linear-gradient(90deg,var(--primary-color),var(--primary-light));
+        background:
+            linear-gradient(
+                90deg,
+                var(--primary-color),
+                var(--primary-light)
+            );
         color: white;
         border: none;
         border-radius: 8px;
@@ -292,10 +376,18 @@
         justify-content: center;
         align-items: center;
         padding: 16px;
-        background: linear-gradient(135deg,#fce7f3 0%,#fef3c7 50%,#fce7f3 100%);
+        background:
+            linear-gradient(
+                135deg,
+                #fce7f3 0%,
+                #fef3c7 50%,
+                #fce7f3 100%
+            );
     }
 
-    .pin-modal { z-index: 2500; }
+    .pin-modal {
+        z-index: 2500;
+    }
 
     .hidden-welcome,
     .pin-modal.hidden {
@@ -355,16 +447,28 @@
     }
 
     .btn-user.noe {
-        background: linear-gradient(135deg,#ec4899,#f472b6);
+        background:
+            linear-gradient(
+                135deg,
+                #ec4899,
+                #f472b6
+            );
         color: white;
     }
 
     .btn-user.dani {
-        background: linear-gradient(135deg,#3b82f6,#60a5fa);
+        background:
+            linear-gradient(
+                135deg,
+                #3b82f6,
+                #60a5fa
+            );
         color: white;
     }
 
-    .pin-subtitle { margin-bottom: 20px; }
+    .pin-subtitle {
+        margin-bottom: 20px;
+    }
 
     .pin-input {
         width: 100%;
@@ -395,7 +499,12 @@
         margin-top: 16px;
         border: none;
         border-radius: 12px;
-        background: linear-gradient(90deg,var(--primary-color),var(--primary-light));
+        background:
+            linear-gradient(
+                90deg,
+                var(--primary-color),
+                var(--primary-light)
+            );
         color: white;
         font-size: 16px;
         font-weight: 700;
@@ -420,38 +529,87 @@
         font-size: 12px;
         cursor: pointer;
     }
-</style>
 
+    /*
+     * En móviles, evitamos que Safari conserve una posición
+     * extraña mientras está abierto el teclado del PIN.
+     */
+    @media (max-width: 600px) {
+
+        .pin-modal {
+            height: 100dvh;
+            min-height: 100dvh;
+            overflow: hidden;
+        }
+
+        .pin-content {
+            transform: translateZ(0);
+        }
+    }
+</style>
 
 </head>
 
 <body>
 
 <!-- ELEGIR PERSONA -->
+
 <div id="welcomeModal" class="welcome-modal">
+
     <div class="welcome-content">
-        <div class="welcome-emoji">💕</div>
-        <div class="welcome-title">Our Dates</div>
-        <div class="welcome-subtitle">¿Quién eres?</div>
+
+        <div class="welcome-emoji">
+            💕
+        </div>
+
+        <div class="welcome-title">
+            Our Dates
+        </div>
+
+        <div class="welcome-subtitle">
+            ¿Quién eres?
+        </div>
 
         <div class="welcome-buttons">
-            <button class="btn-user noe" onclick="selectUser('Noe')">
+
+            <button
+                class="btn-user noe"
+                onclick="selectUser('Noe')"
+            >
                 Soy Noe 💕
             </button>
 
-            <button class="btn-user dani" onclick="selectUser('Dani')">
+            <button
+                class="btn-user dani"
+                onclick="selectUser('Dani')"
+            >
                 Soy Dani 💙
             </button>
+
         </div>
+
     </div>
+
 </div>
 
-<!-- PIN -->
-<div id="pinModal" class="pin-modal hidden">
-    <div class="pin-content">
-        <div class="pin-emoji" id="pinEmoji">💕</div>
 
-        <div class="pin-title" id="pinTitle">
+<!-- PIN -->
+
+<div id="pinModal" class="pin-modal hidden">
+
+    <div class="pin-content">
+
+        <div
+            class="pin-emoji"
+            id="pinEmoji"
+        >
+            💕
+        </div>
+
+        <div
+            class="pin-title"
+            id="pinTitle"
+        >
             Hola 💕
         </div>
 
@@ -469,148 +627,287 @@
             placeholder="•••••••••"
         >
 
-        <div id="pinError" class="pin-error"></div>
+        <div
+            id="pinError"
+            class="pin-error"
+        ></div>
 
-        <button class="pin-button" onclick="loginWithPin()">
+        <button
+            class="pin-button"
+            onclick="loginWithPin()"
+        >
             Entrar 💕
         </button>
 
-        <button class="pin-back" onclick="backToUserSelection()">
+        <button
+            class="pin-back"
+            onclick="backToUserSelection()"
+        >
             ← Cambiar de persona
         </button>
+
     </div>
+
 </div>
+
 
 <div class="container">
 
     <div class="header">
-        <h1>💕 Our Dates</h1>
+
+        <h1>
+            💕 Our Dates
+        </h1>
 
         <div class="user-info">
-            Hola <strong id="userName">Usuario</strong>
 
-            <button class="logout" onclick="logout()">
+            Hola
+            <strong id="userName">
+                Usuario
+            </strong>
+
+            <button
+                class="logout"
+                onclick="logout()"
+            >
                 Cerrar sesión
             </button>
+
         </div>
+
     </div>
 
+
     <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('requests', this)">
+
+        <button
+            class="tab-btn active"
+            onclick="switchTab('requests', this)"
+        >
             Peticiones 📬
         </button>
 
-        <button class="tab-btn" onclick="switchTab('proposals', this)">
+        <button
+            class="tab-btn"
+            onclick="switchTab('proposals', this)"
+        >
             Mis propuestas ✈️
         </button>
 
-        <button class="tab-btn" onclick="switchTab('confirmed', this)">
+        <button
+            class="tab-btn"
+            onclick="switchTab('confirmed', this)"
+        >
             Confirmadas 📅
         </button>
+
     </div>
 
-    <div id="requests" class="section active">
-        <button class="btn-new" onclick="openNewModal()">
+
+    <div
+        id="requests"
+        class="section active"
+    >
+
+        <button
+            class="btn-new"
+            onclick="openNewModal()"
+        >
             + Proponer cita 💌
         </button>
 
         <div id="requestsContainer"></div>
+
     </div>
 
-    <div id="proposals" class="section">
-        <button class="btn-new" onclick="openNewModal()">
+
+    <div
+        id="proposals"
+        class="section"
+    >
+
+        <button
+            class="btn-new"
+            onclick="openNewModal()"
+        >
             + Proponer cita 💌
         </button>
 
         <div id="proposalsContainer"></div>
+
     </div>
 
-    <div id="confirmed" class="section">
+
+    <div
+        id="confirmed"
+        class="section"
+    >
+
         <div id="confirmedContainer"></div>
+
     </div>
+
 </div>
 
+
 <!-- MODAL NUEVA PROPUESTA -->
-<div id="newModal" class="modal">
+
+<div
+    id="newModal"
+    class="modal"
+>
+
     <div class="modal-content">
 
         <div class="modal-header">
+
             <div class="modal-title">
                 Proponer cita 💕
             </div>
 
-            <button class="btn-close" onclick="closeModal()">
+            <button
+                class="btn-close"
+                onclick="closeModal()"
+            >
                 ✕
             </button>
+
         </div>
+
 
         <form id="proposalForm">
 
             <div class="form-group">
+
                 <label class="form-label">
                     ¿Para quién es?
                 </label>
 
-                <select class="form-select" id="forWho" required>
-                    <option value="">Selecciona...</option>
-                    <option value="Dani">Para Dani</option>
-                    <option value="Noe">Para Noe</option>
+                <select
+                    class="form-select"
+                    id="forWho"
+                    required
+                >
+
+                    <option value="">
+                        Selecciona...
+                    </option>
+
+                    <option value="Dani">
+                        Para Dani
+                    </option>
+
+                    <option value="Noe">
+                        Para Noe
+                    </option>
+
                 </select>
+
             </div>
 
+
             <div class="form-group">
+
                 <label class="form-label">
                     ¿Qué vamos a hacer?
                 </label>
 
                 <div class="options-grid">
-                    <button type="button" class="option-btn" data-plan="Comer">
+
+                    <button
+                        type="button"
+                        class="option-btn"
+                        data-plan="Comer"
+                    >
                         🍽️ Comer
                     </button>
 
-                    <button type="button" class="option-btn" data-plan="Cine">
+                    <button
+                        type="button"
+                        class="option-btn"
+                        data-plan="Cine"
+                    >
                         🎬 Cine
                     </button>
 
-                    <button type="button" class="option-btn" data-plan="Paseo">
+                    <button
+                        type="button"
+                        class="option-btn"
+                        data-plan="Paseo"
+                    >
                         🚶 Paseo
                     </button>
 
-                    <button type="button" class="option-btn" data-plan="Compras">
+                    <button
+                        type="button"
+                        class="option-btn"
+                        data-plan="Compras"
+                    >
                         🛍️ Compras
                     </button>
+
                 </div>
 
-                <input type="hidden" id="planType" required>
+                <input
+                    type="hidden"
+                    id="planType"
+                >
+
             </div>
 
+
             <div class="form-group">
+
                 <label class="form-label">
                     Presupuesto por persona
                 </label>
 
                 <div class="options-grid">
-                    <button type="button" class="option-btn" data-budget="5-10€">
+
+                    <button
+                        type="button"
+                        class="option-btn"
+                        data-budget="5-10€"
+                    >
                         💵 5-10€
                     </button>
 
-                    <button type="button" class="option-btn" data-budget="10-20€">
+                    <button
+                        type="button"
+                        class="option-btn"
+                        data-budget="10-20€"
+                    >
                         💳 10-20€
                     </button>
 
-                    <button type="button" class="option-btn" data-budget="20-40€">
+                    <button
+                        type="button"
+                        class="option-btn"
+                        data-budget="20-40€"
+                    >
                         💰 20-40€
                     </button>
 
-                    <button type="button" class="option-btn" data-budget="50€+">
+                    <button
+                        type="button"
+                        class="option-btn"
+                        data-budget="50€+"
+                    >
                         💎 50€+
                     </button>
+
                 </div>
 
-                <input type="hidden" id="budget" required>
+                <input
+                    type="hidden"
+                    id="budget"
+                >
+
             </div>
 
+
             <div class="form-group">
+
                 <label class="form-label">
                     ¿Qué día?
                 </label>
@@ -621,25 +918,57 @@
                     id="date"
                     required
                 >
+
             </div>
 
+
             <div class="form-group">
+
                 <label class="form-label">
                     ¿Qué hora?
                 </label>
 
-                <select class="form-select" id="time" required>
-                    <option value="">Selecciona...</option>
-                    <option value="Mañana (10:00)">Mañana (10:00)</option>
-                    <option value="Mediodía (13:00)">Mediodía (13:00)</option>
-                    <option value="Tarde (17:00)">Tarde (17:00)</option>
-                    <option value="Atardecer (19:00)">Atardecer (19:00)</option>
-                    <option value="Noche (21:00)">Noche (21:00)</option>
-                    <option value="Flexible">Flexible</option>
+                <select
+                    class="form-select"
+                    id="time"
+                    required
+                >
+
+                    <option value="">
+                        Selecciona...
+                    </option>
+
+                    <option value="Mañana (10:00)">
+                        Mañana (10:00)
+                    </option>
+
+                    <option value="Mediodía (13:00)">
+                        Mediodía (13:00)
+                    </option>
+
+                    <option value="Tarde (17:00)">
+                        Tarde (17:00)
+                    </option>
+
+                    <option value="Atardecer (19:00)">
+                        Atardecer (19:00)
+                    </option>
+
+                    <option value="Noche (21:00)">
+                        Noche (21:00)
+                    </option>
+
+                    <option value="Flexible">
+                        Flexible
+                    </option>
+
                 </select>
+
             </div>
 
+
             <div class="form-group">
+
                 <label class="form-label">
                     Descripción (opcional)
                 </label>
@@ -649,23 +978,32 @@
                     id="description"
                     placeholder="Ej: Sushi + paseo romántico..."
                 ></textarea>
+
             </div>
 
-            <button type="submit" class="btn-submit">
+
+            <button
+                type="submit"
+                class="btn-submit"
+            >
                 Enviar propuesta 💌
             </button>
 
         </form>
+
     </div>
+
 </div>
 
 
 <script>
+
 /* ============================================================
    CONFIGURACIÓN
    ============================================================ */
 
-const SUPABASE_URL = 'https://ldaskkqbcnoagpbrkpzb.supabase.co';
+const SUPABASE_URL =
+    'https://ldaskkqbcnoagpbrkpzb.supabase.co';
 
 const SUPABASE_PUBLISHABLE_KEY =
     'sb_publishable_v7mQA88eZYVFHxt7od2ICw_z3IuVRep';
@@ -685,23 +1023,18 @@ const WHATSAPP_NUMBERS = {
    SUPABASE
    ============================================================ */
 
-/*
- * IMPORTANTE:
- * Usamos "supabaseClient" y no "supabase" porque Safari
- * puede tener "supabase" como propiedad global de la librería.
- */
-
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY,
-    {
-        auth: {
-            persistSession: true,
-            autoRefreshToken: true,
-            detectSessionInUrl: false
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY,
+        {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: false
+            }
         }
-    }
-);
+    );
 
 
 /* ============================================================
@@ -723,11 +1056,73 @@ let realtimeChannel = null;
 
 
 /* ============================================================
+   FORZAR SCROLL ARRIBA
+   ============================================================ */
+
+function forceScrollToTop() {
+
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+
+    window.scrollTo(0, 0);
+
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
+    requestAnimationFrame(() => {
+
+        window.scrollTo(0, 0);
+
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
+    });
+
+    setTimeout(() => {
+
+        window.scrollTo(0, 0);
+
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
+    }, 50);
+
+    setTimeout(() => {
+
+        window.scrollTo(0, 0);
+
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
+    }, 300);
+
+    setTimeout(() => {
+
+        window.scrollTo(0, 0);
+
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+
+    }, 800);
+}
+
+
+/* ============================================================
    ELEGIR USUARIO
    ============================================================ */
 
 function selectUser(user) {
+
     selectedLoginUser = user;
+
+    /*
+     * Guardamos que estamos en la parte superior
+     * antes de abrir el teclado.
+     */
+    window.scrollTo(0, 0);
+
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
 
     document.getElementById('welcomeModal')
         .classList.add('hidden-welcome');
@@ -735,29 +1130,53 @@ function selectUser(user) {
     document.getElementById('pinModal')
         .classList.remove('hidden');
 
-    document.getElementById('pinTitle').textContent =
-        user === 'Noe'
-            ? 'Hola Noe 💕'
-            : 'Hola Dani 💙';
+    document.getElementById('pinTitle')
+        .textContent =
+            user === 'Noe'
+                ? 'Hola Noe 💕'
+                : 'Hola Dani 💙';
 
-    document.getElementById('pinEmoji').textContent =
-        user === 'Noe'
-            ? '💕'
-            : '💙';
+    document.getElementById('pinEmoji')
+        .textContent =
+            user === 'Noe'
+                ? '💕'
+                : '💙';
 
-    document.getElementById('pinInput').value = '';
-    document.getElementById('pinError').textContent = '';
+    document.getElementById('pinInput')
+        .value = '';
+
+    document.getElementById('pinError')
+        .textContent = '';
 
     applyTheme(user);
 
+    /*
+     * Damos tiempo a Safari para colocar el modal.
+     *
+     * preventScroll evita que Safari desplace
+     * automáticamente la página al enfocar el input.
+     */
     setTimeout(() => {
-        document.getElementById('pinInput').focus();
+
+        const input =
+            document.getElementById('pinInput');
+
+        input.focus({
+            preventScroll: true
+        });
+
     }, 100);
 }
 
 
 function backToUserSelection() {
+
     selectedLoginUser = null;
+
+    const input =
+        document.getElementById('pinInput');
+
+    input.blur();
 
     document.getElementById('pinModal')
         .classList.add('hidden');
@@ -765,10 +1184,16 @@ function backToUserSelection() {
     document.getElementById('welcomeModal')
         .classList.remove('hidden-welcome');
 
-    document.getElementById('pinInput').value = '';
-    document.getElementById('pinError').textContent = '';
+    input.value = '';
 
-    document.body.classList.remove('theme-dani');
+    document.getElementById('pinError')
+        .textContent = '';
+
+    document.body.classList.remove(
+        'theme-dani'
+    );
+
+    forceScrollToTop();
 }
 
 
@@ -777,86 +1202,128 @@ function backToUserSelection() {
    ============================================================ */
 
 async function loginWithPin() {
+
     if (!selectedLoginUser) return;
 
-    const pinInput = document.getElementById('pinInput');
-    const errorElement = document.getElementById('pinError');
+    const pinInput =
+        document.getElementById('pinInput');
 
-    const pin = pinInput.value.trim();
-    const email = USER_ACCOUNTS[selectedLoginUser];
+    const errorElement =
+        document.getElementById('pinError');
 
-    if (!email || email.startsWith('TU_')) {
+    const pin =
+        pinInput.value.trim();
+
+    const email =
+        USER_ACCOUNTS[selectedLoginUser];
+
+
+    if (
+        !email ||
+        email.startsWith('TU_')
+    ) {
+
         errorElement.textContent =
             'Primero configura el email de este usuario en el código.';
+
         return;
     }
+
 
     if (!pin) {
+
         errorElement.textContent =
             'Introduce tu PIN.';
+
         return;
     }
+
 
     if (!/^\d{4,9}$/.test(pin)) {
+
         errorElement.textContent =
             'El PIN debe tener entre 4 y 9 dígitos.';
+
         return;
     }
 
-    errorElement.textContent = 'Entrando...';
 
-    const { data, error } =
+    errorElement.textContent =
+        'Entrando...';
+
+
+    const {
+        data,
+        error
+    } =
         await supabaseClient.auth.signInWithPassword({
             email,
             password: pin
         });
 
+
     if (error) {
+
         console.error(error);
 
         errorElement.textContent =
             'PIN incorrecto. Inténtalo de nuevo.';
 
         pinInput.value = '';
-        pinInput.focus();
+
+        pinInput.focus({
+            preventScroll: true
+        });
 
         return;
     }
 
-    currentAuthUser = data.user;
-    currentUser = selectedLoginUser;
 
-    document.getElementById('pinModal')
-    .classList.add('hidden');
+    currentAuthUser =
+        data.user;
+
+    currentUser =
+        selectedLoginUser;
+
+
+    /*
+     * Cerramos el modal y el teclado.
+     */
 
     pinInput.blur();
 
-    document.getElementById('userName').textContent =
-        currentUser;
+    document.getElementById('pinModal')
+        .classList.add('hidden');
+
+
+    document.getElementById('userName')
+        .textContent =
+            currentUser;
+
 
     applyTheme(currentUser);
 
-    /* Volver siempre al principio de la página en móvil */
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
 
-    setTimeout(() => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-    }, 100);
+    /*
+     * IMPORTANTE:
+     * Safari puede restaurar la posición después
+     * de cerrar el teclado.
+     */
 
-    setTimeout(() => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-    }, 500);
+    forceScrollToTop();
 
-    applyTheme(currentUser);
 
     await loadProposals();
+
     setupRealtime();
+
+
+    /*
+     * Volvemos a comprobar la posición después
+     * de cargar las propuestas.
+     */
+
+    forceScrollToTop();
 }
 
 
@@ -868,28 +1335,40 @@ async function initializeApp() {
 
     const {
         data: { session }
-    } = await supabaseClient.auth.getSession();
+    } =
+        await supabaseClient.auth.getSession();
+
 
     if (!session) {
+
         document.getElementById('welcomeModal')
             .classList.remove('hidden-welcome');
 
         return;
     }
 
-    currentAuthUser = session.user;
+
+    currentAuthUser =
+        session.user;
+
 
     const email =
-        (session.user.email || '').toLowerCase();
+        (session.user.email || '')
+            .toLowerCase();
+
 
     if (
-        email === USER_ACCOUNTS.Noe.toLowerCase()
+        email ===
+        USER_ACCOUNTS.Noe.toLowerCase()
     ) {
+
         currentUser = 'Noe';
 
     } else if (
-        email === USER_ACCOUNTS.Dani.toLowerCase()
+        email ===
+        USER_ACCOUNTS.Dani.toLowerCase()
     ) {
+
         currentUser = 'Dani';
 
     } else {
@@ -902,18 +1381,24 @@ async function initializeApp() {
         return;
     }
 
+
     document.getElementById('welcomeModal')
         .classList.add('hidden-welcome');
 
     document.getElementById('pinModal')
         .classList.add('hidden');
 
-    document.getElementById('userName').textContent =
-        currentUser;
+
+    document.getElementById('userName')
+        .textContent =
+            currentUser;
+
 
     applyTheme(currentUser);
 
+
     await loadProposals();
+
     setupRealtime();
 }
 
@@ -925,29 +1410,45 @@ async function initializeApp() {
 async function logout() {
 
     if (realtimeChannel) {
-        await supabaseClient.removeChannel(
-            realtimeChannel
-        );
+
+        await supabaseClient
+            .removeChannel(
+                realtimeChannel
+            );
 
         realtimeChannel = null;
     }
 
+
     await supabaseClient.auth.signOut();
 
+
     currentUser = null;
+
     currentAuthUser = null;
+
     allProposals = [];
 
-    document.getElementById('userName').textContent =
-        'Usuario';
+
+    document.getElementById('userName')
+        .textContent =
+            'Usuario';
+
 
     document.getElementById('welcomeModal')
         .classList.remove('hidden-welcome');
 
+
     document.getElementById('pinModal')
         .classList.add('hidden');
 
-    document.body.classList.remove('theme-dani');
+
+    document.body.classList.remove(
+        'theme-dani'
+    );
+
+
+    forceScrollToTop();
 }
 
 
@@ -958,9 +1459,16 @@ async function logout() {
 function applyTheme(user) {
 
     if (user === 'Dani') {
-        document.body.classList.add('theme-dani');
+
+        document.body.classList.add(
+            'theme-dani'
+        );
+
     } else {
-        document.body.classList.remove('theme-dani');
+
+        document.body.classList.remove(
+            'theme-dani'
+        );
     }
 }
 
@@ -974,12 +1482,14 @@ async function loadProposals() {
     const {
         data,
         error
-    } = await supabaseClient
-        .from('proposals')
-        .select('*')
-        .order('created_at', {
-            ascending: false
-        });
+    } =
+        await supabaseClient
+            .from('proposals')
+            .select('*')
+            .order('created_at', {
+                ascending: false
+            });
+
 
     if (error) {
 
@@ -995,18 +1505,32 @@ async function loadProposals() {
         return;
     }
 
-    allProposals = data.map(p => ({
-        id: p.id,
-        from: p.from_user,
-        for: p.for_user,
-        type: p.type,
-        budget: p.budget,
-        date: p.date,
-        time: p.time,
-        description: p.description,
-        status: p.status,
-        created_at: p.created_at
-    }));
+
+    allProposals =
+        data.map(p => ({
+
+            id: p.id,
+
+            from: p.from_user,
+
+            for: p.for_user,
+
+            type: p.type,
+
+            budget: p.budget,
+
+            date: p.date,
+
+            time: p.time,
+
+            description: p.description,
+
+            status: p.status,
+
+            created_at: p.created_at
+
+        }));
+
 
     renderProposals();
 }
@@ -1020,25 +1544,35 @@ function setupRealtime() {
 
     if (realtimeChannel) return;
 
-    realtimeChannel = supabaseClient
-        .channel('our-dates-proposals')
-        .on(
-            'postgres_changes',
-            {
-                event: '*',
-                schema: 'public',
-                table: 'proposals'
-            },
-            async () => {
-                await loadProposals();
-            }
-        )
-        .subscribe(status => {
-            console.log(
-                'Our Dates Realtime:',
-                status
+
+    realtimeChannel =
+        supabaseClient
+            .channel(
+                'our-dates-proposals'
+            )
+            .on(
+                'postgres_changes',
+                {
+                    event: '*',
+                    schema: 'public',
+                    table: 'proposals'
+                },
+                async () => {
+
+                    await loadProposals();
+
+                }
+            )
+            .subscribe(
+                status => {
+
+                    console.log(
+                        'Our Dates Realtime:',
+                        status
+                    );
+
+                }
             );
-        });
 }
 
 
@@ -1046,22 +1580,37 @@ function setupRealtime() {
    TABS
    ============================================================ */
 
-function switchTab(tab, button) {
+function switchTab(
+    tab,
+    button
+) {
 
-    document.querySelectorAll('.section')
-        .forEach(s =>
-            s.classList.remove('active')
-        );
+    document.querySelectorAll(
+        '.section'
+    ).forEach(
+        s =>
+            s.classList.remove(
+                'active'
+            )
+    );
 
-    document.querySelectorAll('.tab-btn')
-        .forEach(b =>
-            b.classList.remove('active')
-        );
+
+    document.querySelectorAll(
+        '.tab-btn'
+    ).forEach(
+        b =>
+            b.classList.remove(
+                'active'
+            )
+    );
+
 
     document.getElementById(tab)
         .classList.add('active');
 
+
     button.classList.add('active');
+
 
     renderProposals();
 }
@@ -1090,50 +1639,78 @@ function closeModal() {
 function setupPlanSelection() {
 
     document
-        .querySelectorAll('.option-btn[data-plan]')
+        .querySelectorAll(
+            '.option-btn[data-plan]'
+        )
         .forEach(btn => {
 
             btn.onclick = e => {
 
                 e.preventDefault();
+
 
                 document
                     .querySelectorAll(
                         '.option-btn[data-plan]'
                     )
-                    .forEach(b =>
-                        b.classList.remove('selected')
+                    .forEach(
+                        b =>
+                            b.classList.remove(
+                                'selected'
+                            )
                     );
 
-                btn.classList.add('selected');
 
-                document.getElementById('planType')
-                    .value = btn.dataset.plan;
+                btn.classList.add(
+                    'selected'
+                );
+
+
+                document.getElementById(
+                    'planType'
+                ).value =
+                    btn.dataset.plan;
+
             };
+
         });
 
 
     document
-        .querySelectorAll('.option-btn[data-budget]')
+        .querySelectorAll(
+            '.option-btn[data-budget]'
+        )
         .forEach(btn => {
 
             btn.onclick = e => {
 
                 e.preventDefault();
 
+
                 document
                     .querySelectorAll(
                         '.option-btn[data-budget]'
                     )
-                    .forEach(b =>
-                        b.classList.remove('selected')
+                    .forEach(
+                        b =>
+                            b.classList.remove(
+                                'selected'
+                            )
                     );
 
-                btn.classList.add('selected');
 
-                document.getElementById('budget')
-                    .value = btn.dataset.budget;
+                btn.classList.add(
+                    'selected'
+                );
+
+
+                document.getElementById(
+                    'budget'
+                ).value =
+                    btn.dataset.budget;
+
             };
+
         });
 }
 
@@ -1142,12 +1719,18 @@ function setupPlanSelection() {
    CREAR PROPUESTA
    ============================================================ */
 
-document.getElementById('proposalForm')
-    .onsubmit = async e => {
+document
+    .getElementById('proposalForm')
+    .onsubmit =
+    async e => {
 
         e.preventDefault();
 
-        if (!currentAuthUser || !currentUser) {
+
+        if (
+            !currentAuthUser ||
+            !currentUser
+        ) {
 
             alert(
                 'Primero tienes que iniciar sesión.'
@@ -1156,31 +1739,47 @@ document.getElementById('proposalForm')
             return;
         }
 
+
         const proposal = {
 
-            user_id: currentAuthUser.id,
+            user_id:
+                currentAuthUser.id,
 
-            from_user: currentUser,
+            from_user:
+                currentUser,
 
             for_user:
-                document.getElementById('forWho').value,
+                document.getElementById(
+                    'forWho'
+                ).value,
 
             type:
-                document.getElementById('planType').value,
+                document.getElementById(
+                    'planType'
+                ).value,
 
             budget:
-                document.getElementById('budget').value,
+                document.getElementById(
+                    'budget'
+                ).value,
 
             date:
-                document.getElementById('date').value,
+                document.getElementById(
+                    'date'
+                ).value,
 
             time:
-                document.getElementById('time').value,
+                document.getElementById(
+                    'time'
+                ).value,
 
             description:
-                document.getElementById('description').value,
+                document.getElementById(
+                    'description'
+                ).value,
 
-            status: 'pending'
+            status:
+                'pending'
         };
 
 
@@ -1200,7 +1799,9 @@ document.getElementById('proposalForm')
         }
 
 
-        const { error } =
+        const {
+            error
+        } =
             await supabaseClient
                 .from('proposals')
                 .insert(proposal);
@@ -1224,22 +1825,35 @@ document.getElementById('proposalForm')
 
         closeModal();
 
-        document.getElementById('proposalForm')
-            .reset();
+
+        document.getElementById(
+            'proposalForm'
+        ).reset();
+
 
         document
-            .querySelectorAll('.option-btn')
-            .forEach(b =>
-                b.classList.remove('selected')
+            .querySelectorAll(
+                '.option-btn'
+            )
+            .forEach(
+                b =>
+                    b.classList.remove(
+                        'selected'
+                    )
             );
+
 
         await loadProposals();
 
+
         setTimeout(() => {
+
             alert(
                 '¡Propuesta enviada! 💕'
             );
+
         }, 200);
+
     };
 
 
@@ -1249,13 +1863,19 @@ document.getElementById('proposalForm')
 
 async function acceptProposal(id) {
 
-    const { error } =
+    const {
+        error
+    } =
         await supabaseClient
             .from('proposals')
             .update({
                 status: 'accepted'
             })
-            .eq('id', id);
+            .eq(
+                'id',
+                id
+            );
+
 
     if (error) {
 
@@ -1268,7 +1888,9 @@ async function acceptProposal(id) {
         return;
     }
 
+
     await loadProposals();
+
 
     alert(
         '¡Cita confirmada! 🎉'
@@ -1278,13 +1900,19 @@ async function acceptProposal(id) {
 
 async function rejectProposal(id) {
 
-    const { error } =
+    const {
+        error
+    } =
         await supabaseClient
             .from('proposals')
             .update({
                 status: 'rejected'
             })
-            .eq('id', id);
+            .eq(
+                'id',
+                id
+            );
+
 
     if (error) {
 
@@ -1296,6 +1924,7 @@ async function rejectProposal(id) {
 
         return;
     }
+
 
     await loadProposals();
 }
@@ -1318,8 +1947,10 @@ function sendToWhatsApp(proposal) {
     const other =
         getOtherUser(currentUser);
 
+
     const phone =
         WHATSAPP_NUMBERS[other];
+
 
     if (!phone) {
 
@@ -1330,13 +1961,19 @@ function sendToWhatsApp(proposal) {
         return;
     }
 
+
     const message =
-        '¡Tengo una propuesta para ti! 💕 Entra en Our Dates para verla: https://pruebas588.github.io/nopucmes/';
+        '¡Tengo una propuesta para ti! 💕 Entra en Our Dates para verla: https://pruebas588.github.io/dates/';
+
 
     const url =
         `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
-    window.open(url, '_blank');
+
+    window.open(
+        url,
+        '_blank'
+    );
 }
 
 
@@ -1347,7 +1984,10 @@ function sendToWhatsApp(proposal) {
 function formatDate(dateStr) {
 
     const date =
-        new Date(dateStr + 'T00:00:00');
+        new Date(
+            dateStr + 'T00:00:00'
+        );
+
 
     return date.toLocaleDateString(
         'es-ES',
@@ -1368,15 +2008,18 @@ function renderProposals() {
 
     if (!currentUser) return;
 
+
     const requestsContainer =
         document.getElementById(
             'requestsContainer'
         );
 
+
     const proposalsContainer =
         document.getElementById(
             'proposalsContainer'
         );
+
 
     const confirmedContainer =
         document.getElementById(
@@ -1408,19 +2051,32 @@ function renderProposals() {
 
     /* PETICIONES */
 
-    if (myRequests.length === 0) {
+    if (
+        myRequests.length === 0
+    ) {
 
         requestsContainer.innerHTML = `
+
             <div class="empty-state">
-                <div class="empty-state-emoji">📭</div>
-                <p>No hay peticiones aún</p>
+
+                <div class="empty-state-emoji">
+                    📭
+                </div>
+
+                <p>
+                    No hay peticiones aún
+                </p>
+
             </div>
+
         `;
 
     } else {
 
         requestsContainer.innerHTML =
-            myRequests.map(p => `
+            myRequests
+                .map(
+                    p => `
 
             <div class="card">
 
@@ -1432,35 +2088,50 @@ function renderProposals() {
 
                 </div>
 
+
                 <div class="card-details">
 
                     <div>
                         ${EMOJIS[p.type]}
-                        <strong>${p.type}</strong>
+                        <strong>
+                            ${p.type}
+                        </strong>
                     </div>
 
                     <div>
                         💰
-                        <strong>${p.budget}</strong>
+                        <strong>
+                            ${p.budget}
+                        </strong>
                     </div>
 
                     <div>
                         📅
-                        <strong>${formatDate(p.date)}</strong>
+                        <strong>
+                            ${formatDate(p.date)}
+                        </strong>
                     </div>
 
                     <div>
                         ⏰
-                        <strong>${p.time}</strong>
+                        <strong>
+                            ${p.time}
+                        </strong>
                     </div>
 
                     ${
                         p.description
-                            ? `<div>📝 ${p.description}</div>`
+                            ? `
+                                <div>
+                                    📝
+                                    ${p.description}
+                                </div>
+                            `
                             : ''
                     }
 
                 </div>
+
 
                 <div class="card-actions">
 
@@ -1482,25 +2153,41 @@ function renderProposals() {
 
             </div>
 
-        `).join('');
+        `
+                )
+                .join('');
+
     }
 
 
     /* MIS PROPUESTAS */
 
-    if (myProposals.length === 0) {
+    if (
+        myProposals.length === 0
+    ) {
 
         proposalsContainer.innerHTML = `
+
             <div class="empty-state">
-                <div class="empty-state-emoji">✈️</div>
-                <p>No has propuesto nada aún</p>
+
+                <div class="empty-state-emoji">
+                    ✈️
+                </div>
+
+                <p>
+                    No has propuesto nada aún
+                </p>
+
             </div>
+
         `;
 
     } else {
 
         proposalsContainer.innerHTML =
-            myProposals.map(p => `
+            myProposals
+                .map(
+                    p => `
 
             <div class="card">
 
@@ -1510,7 +2197,9 @@ function renderProposals() {
                         Para ${p.for}
                     </div>
 
-                    <span class="status-badge status-${p.status}">
+                    <span
+                        class="status-badge status-${p.status}"
+                    >
 
                         ${
                             p.status === 'pending'
@@ -1524,114 +2213,169 @@ function renderProposals() {
 
                 </div>
 
+
                 <div class="card-details">
 
                     <div>
                         ${EMOJIS[p.type]}
-                        <strong>${p.type}</strong>
+
+                        <strong>
+                            ${p.type}
+                        </strong>
                     </div>
 
                     <div>
                         💰
-                        <strong>${p.budget}</strong>
+
+                        <strong>
+                            ${p.budget}
+                        </strong>
                     </div>
 
                     <div>
                         📅
-                        <strong>${formatDate(p.date)}</strong>
+
+                        <strong>
+                            ${formatDate(p.date)}
+                        </strong>
                     </div>
 
                     <div>
                         ⏰
-                        <strong>${p.time}</strong>
+
+                        <strong>
+                            ${p.time}
+                        </strong>
                     </div>
 
                     ${
                         p.description
-                            ? `<div>📝 ${p.description}</div>`
+                            ? `
+                                <div>
+                                    📝
+                                    ${p.description}
+                                </div>
+                            `
                             : ''
                     }
 
                 </div>
 
+
                 ${
                     p.status === 'pending'
                         ? `
-                        <div class="card-actions">
+                            <div class="card-actions">
 
-                            <button
-                                class="btn-small btn-whatsapp"
-                                onclick="sendToWhatsApp(${p.id})"
-                            >
-                                💬 Recordar por WhatsApp
-                            </button>
+                                <button
+                                    class="btn-small btn-whatsapp"
+                                    onclick="sendToWhatsApp(${p.id})"
+                                >
+                                    💬 Recordar por WhatsApp
+                                </button>
 
-                        </div>
+                            </div>
                         `
                         : ''
                 }
 
             </div>
 
-        `).join('');
+        `
+                )
+                .join('');
+
     }
 
 
     /* CONFIRMADAS */
 
-    if (confirmed.length === 0) {
+    if (
+        confirmed.length === 0
+    ) {
 
         confirmedContainer.innerHTML = `
+
             <div class="empty-state">
-                <div class="empty-state-emoji">📅</div>
-                <p>No hay citas confirmadas aún</p>
+
+                <div class="empty-state-emoji">
+                    📅
+                </div>
+
+                <p>
+                    No hay citas confirmadas aún
+                </p>
+
             </div>
+
         `;
 
     } else {
 
         confirmedContainer.innerHTML =
-            confirmed.map(p => `
+            confirmed
+                .map(
+                    p => `
 
             <div class="card">
 
                 <div class="card-header">
 
                     <div class="card-title">
+
                         Cita con ${
                             p.from === currentUser
                                 ? p.for
                                 : p.from
                         }
+
                     </div>
 
                 </div>
+
 
                 <div class="card-details">
 
                     <div>
                         ${EMOJIS[p.type]}
-                        <strong>${p.type}</strong>
+
+                        <strong>
+                            ${p.type}
+                        </strong>
                     </div>
 
                     <div>
                         💰
-                        <strong>${p.budget}</strong>
+
+                        <strong>
+                            ${p.budget}
+                        </strong>
                     </div>
 
                     <div>
                         📅
-                        <strong>${formatDate(p.date)}</strong>
+
+                        <strong>
+                            ${formatDate(p.date)}
+                        </strong>
                     </div>
 
                     <div>
                         ⏰
-                        <strong>${p.time}</strong>
+
+                        <strong>
+                            ${p.time}
+                        </strong>
                     </div>
 
                     ${
                         p.description
-                            ? `<div>📝 ${p.description}</div>`
+                            ? `
+                                <div>
+                                    📝
+                                    ${p.description}
+                                </div>
+                            `
                             : ''
                     }
 
@@ -1639,7 +2383,10 @@ function renderProposals() {
 
             </div>
 
-        `).join('');
+        `
+                )
+                .join('');
+
     }
 }
 
@@ -1650,13 +2397,18 @@ function renderProposals() {
 
 document
     .getElementById('pinInput')
-    .addEventListener('keydown', e => {
+    .addEventListener(
+        'keydown',
+        e => {
 
-        if (e.key === 'Enter') {
-            loginWithPin();
+            if (e.key === 'Enter') {
+
+                loginWithPin();
+
+            }
+
         }
-
-    });
+    );
 
 
 /* ============================================================
