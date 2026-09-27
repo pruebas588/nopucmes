@@ -188,6 +188,11 @@
         color: #991b1b;
     }
 
+    .status-cancelled {
+        background: #e5e7eb;
+        color: #4b5563;
+    }
+
     .card-actions {
         display: flex;
         gap: 8px;
@@ -217,6 +222,11 @@
     .btn-whatsapp {
         background: #25d366;
         color: white;
+    }
+
+    .btn-cancel {
+        background: #f3f4f6;
+        color: #4b5563;
     }
 
     .btn-new {
@@ -365,6 +375,13 @@
         font-weight: 600;
         cursor: pointer;
         margin-top: 16px;
+    }
+
+    /* DÍA + HORA EN LA MISMA LÍNEA */
+    .datetime-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
     }
 
     .welcome-modal,
@@ -530,10 +547,6 @@
         cursor: pointer;
     }
 
-    /*
-     * En móviles, evitamos que Safari conserve una posición
-     * extraña mientras está abierto el teclado del PIN.
-     */
     @media (max-width: 600px) {
 
         .pin-modal {
@@ -545,9 +558,14 @@
         .pin-content {
             transform: translateZ(0);
         }
+
+        .datetime-row {
+            grid-template-columns: 1fr 1fr;
+        }
     }
 </style>
 
+<!-- ONESIGNAL: NO TOCAR -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 
 <script>
@@ -561,14 +579,13 @@
         serviceWorkerPath: "/nopucmes/OneSignalSDKWorker.js",
         serviceWorkerParam: {
             scope: "/nopucmes/"
-    },
+        },
 
         notifyButton: {
-        enable: true,
+            enable: true,
         },
     });
   });
-
 </script>
 
 </head>
@@ -929,63 +946,88 @@
             </div>
 
 
-            <div class="form-group">
+            <!-- DÍA + HORA -->
 
-                <label class="form-label">
-                    ¿Qué día?
-                </label>
+            <div class="datetime-row">
 
-                <input
-                    type="date"
-                    class="form-input"
-                    id="date"
-                    required
-                >
+                <div class="form-group">
+
+                    <label class="form-label">
+                        📅 Día
+                    </label>
+
+                    <input
+                        type="date"
+                        class="form-input"
+                        id="date"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        ⏰ Hora
+                    </label>
+
+                    <select
+                        class="form-select"
+                        id="time"
+                        required
+                    >
+
+                        <option value="">
+                            Selecciona...
+                        </option>
+
+                        <option value="Mañana (10:00)">
+                            10:00
+                        </option>
+
+                        <option value="Mediodía (13:00)">
+                            13:00
+                        </option>
+
+                        <option value="Tarde (17:00)">
+                            17:00
+                        </option>
+
+                        <option value="Atardecer (19:00)">
+                            19:00
+                        </option>
+
+                        <option value="Noche (21:00)">
+                            21:00
+                        </option>
+
+                        <option value="Flexible">
+                            Flexible
+                        </option>
+
+                    </select>
+
+                </div>
 
             </div>
 
 
+            <!-- UBICACIÓN -->
+
             <div class="form-group">
 
                 <label class="form-label">
-                    ¿Qué hora?
+                    📍 ¿Dónde?
                 </label>
 
-                <select
-                    class="form-select"
-                    id="time"
-                    required
+                <input
+                    type="text"
+                    class="form-input"
+                    id="location"
+                    placeholder="Casa Dani, restaurante, cine..."
+                    autocomplete="off"
                 >
-
-                    <option value="">
-                        Selecciona...
-                    </option>
-
-                    <option value="Mañana (10:00)">
-                        Mañana (10:00)
-                    </option>
-
-                    <option value="Mediodía (13:00)">
-                        Mediodía (13:00)
-                    </option>
-
-                    <option value="Tarde (17:00)">
-                        Tarde (17:00)
-                    </option>
-
-                    <option value="Atardecer (19:00)">
-                        Atardecer (19:00)
-                    </option>
-
-                    <option value="Noche (21:00)">
-                        Noche (21:00)
-                    </option>
-
-                    <option value="Flexible">
-                        Flexible
-                    </option>
-
-                </select>
 
             </div>
 
@@ -1079,6 +1121,60 @@ let realtimeChannel = null;
 
 
 /* ============================================================
+   NOTIFICACIONES
+   ============================================================ */
+
+async function sendNotification(
+    toUser,
+    title,
+    message
+) {
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.functions.invoke(
+                'send-notification',
+                {
+                    body: {
+                        toUser,
+                        title,
+                        message
+                    }
+                }
+            );
+
+
+        if (error) {
+
+            console.error(
+                'Error enviando notificación:',
+                error
+            );
+
+            return;
+        }
+
+
+        console.log(
+            'Notificación enviada:',
+            data
+        );
+
+    } catch (err) {
+
+        console.error(
+            'Error llamando a send-notification:',
+            err
+        );
+    }
+}
+
+
+/* ============================================================
    FORZAR SCROLL ARRIBA
    ============================================================ */
 
@@ -1138,10 +1234,6 @@ function selectUser(user) {
 
     selectedLoginUser = user;
 
-    /*
-     * Guardamos que estamos en la parte superior
-     * antes de abrir el teclado.
-     */
     window.scrollTo(0, 0);
 
     document.documentElement.scrollTop = 0;
@@ -1173,12 +1265,6 @@ function selectUser(user) {
 
     applyTheme(user);
 
-    /*
-     * Damos tiempo a Safari para colocar el modal.
-     *
-     * preventScroll evita que Safari desplace
-     * automáticamente la página al enfocar el input.
-     */
     setTimeout(() => {
 
         const input =
@@ -1308,12 +1394,10 @@ async function loginWithPin() {
     currentUser =
         selectedLoginUser;
 
+
+    /* ONESIGNAL: SE MANTIENE */
     await OneSignal.login(currentUser);
 
-
-    /*
-     * Cerramos el modal y el teclado.
-     */
 
     pinInput.blur();
 
@@ -1329,12 +1413,6 @@ async function loginWithPin() {
     applyTheme(currentUser);
 
 
-    /*
-     * IMPORTANTE:
-     * Safari puede restaurar la posición después
-     * de cerrar el teclado.
-     */
-
     forceScrollToTop();
 
 
@@ -1342,11 +1420,6 @@ async function loginWithPin() {
 
     setupRealtime();
 
-
-    /*
-     * Volvemos a comprobar la posición después
-     * de cargar las propuestas.
-     */
 
     forceScrollToTop();
 }
@@ -1547,6 +1620,8 @@ async function loadProposals() {
             date: p.date,
 
             time: p.time,
+
+            location: p.location || '',
 
             description: p.description,
 
@@ -1765,6 +1840,22 @@ document
         }
 
 
+        const forUser =
+            document.getElementById(
+                'forWho'
+            ).value;
+
+
+        if (forUser === currentUser) {
+
+            alert(
+                'No puedes enviarte una propuesta a ti mismo.'
+            );
+
+            return;
+        }
+
+
         const proposal = {
 
             user_id:
@@ -1774,9 +1865,7 @@ document
                 currentUser,
 
             for_user:
-                document.getElementById(
-                    'forWho'
-                ).value,
+                forUser,
 
             type:
                 document.getElementById(
@@ -1798,10 +1887,15 @@ document
                     'time'
                 ).value,
 
+            location:
+                document.getElementById(
+                    'location'
+                ).value.trim(),
+
             description:
                 document.getElementById(
                     'description'
-                ).value,
+                ).value.trim(),
 
             status:
                 'pending'
@@ -1825,11 +1919,14 @@ document
 
 
         const {
+            data: createdProposal,
             error
         } =
             await supabaseClient
                 .from('proposals')
-                .insert(proposal);
+                .insert(proposal)
+                .select()
+                .single();
 
 
         if (error) {
@@ -1871,6 +1968,21 @@ document
         await loadProposals();
 
 
+        /* NOTIFICACIÓN */
+
+        const locationText =
+            proposal.location
+                ? ` · 📍 ${proposal.location}`
+                : '';
+
+
+        await sendNotification(
+            proposal.for_user,
+            `💕 ${currentUser} te ha enviado una propuesta`,
+            `${EMOJIS[proposal.type] || '💕'} ${proposal.type} · ${formatDate(proposal.date)} · ${proposal.time}${locationText}`
+        );
+
+
         setTimeout(() => {
 
             alert(
@@ -1883,10 +1995,19 @@ document
 
 
 /* ============================================================
-   ACEPTAR / RECHAZAR
+   ACEPTAR
    ============================================================ */
 
 async function acceptProposal(id) {
+
+    const proposal =
+        allProposals.find(
+            p => p.id === id
+        );
+
+
+    if (!proposal) return;
+
 
     const {
         error
@@ -1917,13 +2038,39 @@ async function acceptProposal(id) {
     await loadProposals();
 
 
+    const locationText =
+        proposal.location
+            ? ` · 📍 ${proposal.location}`
+            : '';
+
+
+    await sendNotification(
+        proposal.from,
+        `🎉 ${currentUser} ha aceptado tu propuesta`,
+        `${EMOJIS[proposal.type] || '💕'} ${proposal.type} · ${formatDate(proposal.date)}${locationText}`
+    );
+
+
     alert(
         '¡Cita confirmada! 🎉'
     );
 }
 
 
+/* ============================================================
+   RECHAZAR
+   ============================================================ */
+
 async function rejectProposal(id) {
+
+    const proposal =
+        allProposals.find(
+            p => p.id === id
+        );
+
+
+    if (!proposal) return;
+
 
     const {
         error
@@ -1952,6 +2099,94 @@ async function rejectProposal(id) {
 
 
     await loadProposals();
+
+
+    const locationText =
+        proposal.location
+            ? ` · 📍 ${proposal.location}`
+            : '';
+
+
+    await sendNotification(
+        proposal.from,
+        `❌ ${currentUser} ha rechazado tu propuesta`,
+        `${EMOJIS[proposal.type] || '💕'} ${proposal.type} · ${formatDate(proposal.date)}${locationText}`
+    );
+}
+
+
+/* ============================================================
+   CANCELAR PLAN
+   ============================================================ */
+
+async function cancelProposal(id) {
+
+    const proposal =
+        allProposals.find(
+            p => p.id === id
+        );
+
+
+    if (!proposal) return;
+
+
+    if (
+        proposal.from !== currentUser
+    ) {
+
+        return;
+    }
+
+
+    const confirmed =
+        confirm(
+            '¿Seguro que quieres cancelar este plan?'
+        );
+
+
+    if (!confirmed) return;
+
+
+    const {
+        error
+    } =
+        await supabaseClient
+            .from('proposals')
+            .update({
+                status: 'cancelled'
+            })
+            .eq(
+                'id',
+                id
+            );
+
+
+    if (error) {
+
+        console.error(error);
+
+        alert(
+            'No se ha podido cancelar el plan.'
+        );
+
+        return;
+    }
+
+
+    await loadProposals();
+
+
+    const locationText =
+        proposal.location
+            ? ` · 📍 ${proposal.location}`
+            : '';
+
+
+    await sendNotification(
+        proposal.for,
+        `🚫 ${currentUser} ha cancelado el plan`,
+        `${EMOJIS[proposal.type] || '💕'} ${proposal.type} · ${formatDate(proposal.date)}${locationText}`
+    );
 }
 
 
@@ -1967,7 +2202,16 @@ function getOtherUser(user) {
 }
 
 
-function sendToWhatsApp(proposal) {
+function sendToWhatsApp(proposalId) {
+
+    const proposal =
+        allProposals.find(
+            p => p.id === proposalId
+        );
+
+
+    if (!proposal) return;
+
 
     const other =
         getOtherUser(currentUser);
@@ -1988,7 +2232,7 @@ function sendToWhatsApp(proposal) {
 
 
     const message =
-        '¡Tengo una propuesta para ti! 💕 Entra en Our Dates para verla: https://pruebas588.github.io/dates/';
+        '¡Tengo una propuesta para ti! 💕 Entra en Our Dates para verla: https://pruebas588.github.io/nopucmes/';
 
 
     const url =
@@ -2022,6 +2266,32 @@ function formatDate(dateStr) {
             day: 'numeric'
         }
     );
+}
+
+
+/* ============================================================
+   TEXTO DEL ESTADO
+   ============================================================ */
+
+function getStatusEmoji(status) {
+
+    if (status === 'pending') {
+        return '⏳';
+    }
+
+    if (status === 'accepted') {
+        return '✅';
+    }
+
+    if (status === 'rejected') {
+        return '❌';
+    }
+
+    if (status === 'cancelled') {
+        return '🚫';
+    }
+
+    return '';
 }
 
 
@@ -2074,7 +2344,9 @@ function renderProposals() {
         );
 
 
-    /* PETICIONES */
+    /* ========================================================
+       PETICIONES
+       ======================================================== */
 
     if (
         myRequests.length === 0
@@ -2117,7 +2389,8 @@ function renderProposals() {
                 <div class="card-details">
 
                     <div>
-                        ${EMOJIS[p.type]}
+                        ${EMOJIS[p.type] || '💕'}
+
                         <strong>
                             ${p.type}
                         </strong>
@@ -2125,6 +2398,7 @@ function renderProposals() {
 
                     <div>
                         💰
+
                         <strong>
                             ${p.budget}
                         </strong>
@@ -2132,6 +2406,7 @@ function renderProposals() {
 
                     <div>
                         📅
+
                         <strong>
                             ${formatDate(p.date)}
                         </strong>
@@ -2139,10 +2414,24 @@ function renderProposals() {
 
                     <div>
                         ⏰
+
                         <strong>
                             ${p.time}
                         </strong>
                     </div>
+
+                    ${
+                        p.location
+                            ? `
+                                <div>
+                                    📍
+                                    <strong>
+                                        ${p.location}
+                                    </strong>
+                                </div>
+                            `
+                            : ''
+                    }
 
                     ${
                         p.description
@@ -2185,7 +2474,9 @@ function renderProposals() {
     }
 
 
-    /* MIS PROPUESTAS */
+    /* ========================================================
+       MIS PROPUESTAS
+       ======================================================== */
 
     if (
         myProposals.length === 0
@@ -2226,13 +2517,7 @@ function renderProposals() {
                         class="status-badge status-${p.status}"
                     >
 
-                        ${
-                            p.status === 'pending'
-                                ? '⏳'
-                                : p.status === 'accepted'
-                                    ? '✅'
-                                    : '❌'
-                        }
+                        ${getStatusEmoji(p.status)}
 
                     </span>
 
@@ -2242,7 +2527,7 @@ function renderProposals() {
                 <div class="card-details">
 
                     <div>
-                        ${EMOJIS[p.type]}
+                        ${EMOJIS[p.type] || '💕'}
 
                         <strong>
                             ${p.type}
@@ -2274,6 +2559,20 @@ function renderProposals() {
                     </div>
 
                     ${
+                        p.location
+                            ? `
+                                <div>
+                                    📍
+
+                                    <strong>
+                                        ${p.location}
+                                    </strong>
+                                </div>
+                            `
+                            : ''
+                    }
+
+                    ${
                         p.description
                             ? `
                                 <div>
@@ -2299,9 +2598,29 @@ function renderProposals() {
                                     💬 Recordar por WhatsApp
                                 </button>
 
+                                <button
+                                    class="btn-small btn-cancel"
+                                    onclick="cancelProposal(${p.id})"
+                                >
+                                    🚫 Cancelar
+                                </button>
+
                             </div>
                         `
-                        : ''
+                        : p.status === 'accepted'
+                            ? `
+                                <div class="card-actions">
+
+                                    <button
+                                        class="btn-small btn-cancel"
+                                        onclick="cancelProposal(${p.id})"
+                                    >
+                                        🚫 Cancelar plan
+                                    </button>
+
+                                </div>
+                            `
+                            : ''
                 }
 
             </div>
@@ -2313,7 +2632,9 @@ function renderProposals() {
     }
 
 
-    /* CONFIRMADAS */
+    /* ========================================================
+       CONFIRMADAS
+       ======================================================== */
 
     if (
         confirmed.length === 0
@@ -2362,7 +2683,7 @@ function renderProposals() {
                 <div class="card-details">
 
                     <div>
-                        ${EMOJIS[p.type]}
+                        ${EMOJIS[p.type] || '💕'}
 
                         <strong>
                             ${p.type}
@@ -2394,6 +2715,20 @@ function renderProposals() {
                     </div>
 
                     ${
+                        p.location
+                            ? `
+                                <div>
+                                    📍
+
+                                    <strong>
+                                        ${p.location}
+                                    </strong>
+                                </div>
+                            `
+                            : ''
+                    }
+
+                    ${
                         p.description
                             ? `
                                 <div>
@@ -2405,6 +2740,24 @@ function renderProposals() {
                     }
 
                 </div>
+
+
+                ${
+                    p.from === currentUser
+                        ? `
+                            <div class="card-actions">
+
+                                <button
+                                    class="btn-small btn-cancel"
+                                    onclick="cancelProposal(${p.id})"
+                                >
+                                    🚫 Cancelar plan
+                                </button>
+
+                            </div>
+                        `
+                        : ''
+                }
 
             </div>
 
