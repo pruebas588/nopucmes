@@ -379,9 +379,20 @@
 
     /* DÍA + HORA EN LA MISMA LÍNEA */
     .datetime-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+    .datetime-row .form-group {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .datetime-row .form-input,
+    .datetime-row .form-select {
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .welcome-modal,
@@ -2331,10 +2342,11 @@ function renderProposals() {
 
 
     const myProposals =
-        allProposals.filter(
-            p =>
-                p.from === currentUser
-        );
+    allProposals.filter(
+        p =>
+            p.from === currentUser &&
+            p.status !== 'cancelled'
+    );
 
 
     const confirmed =
