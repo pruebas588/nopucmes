@@ -568,7 +568,7 @@
         },
     });
   });
-  
+
 </script>
 
 </head>
@@ -1307,6 +1307,8 @@ async function loginWithPin() {
 
     currentUser =
         selectedLoginUser;
+
+    await OneSignal.login(currentUser);
 
 
     /*
