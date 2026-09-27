@@ -2828,7 +2828,45 @@ document
 
 initializeApp();
 
+
+/* ============================================================
+   BOTÓN DE PRUEBA ONESIGNAL
+   ============================================================ */
+
+function sendTestNotification() {
+  OneSignal.push(function() {
+    OneSignal.sendSelfNotification({
+      headings: { es: "¡Funciona! 🎉" },
+      contents: { es: "OneSignal está funcionando correctamente" },
+      data: { test: true }
+    });
+  });
+}
+
 </script>
+
+<!-- Botón flotante de prueba -->
+<button onclick="sendTestNotification()" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  background: #ec4899;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+  font-size: 14px;
+  transition: all 0.3s ease;
+"
+onmouseover="this.style.background='#be123c'; this.style.transform='scale(1.05)'"
+onmouseout="this.style.background='#ec4899'; this.style.transform='scale(1)'"
+>
+  🧪 Prueba OneSignal
+</button>
 
 </body>
 </html>
