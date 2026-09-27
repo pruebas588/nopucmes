@@ -9,27 +9,6 @@
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- OneSignal SDK -->
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-      window.OneSignalSDK = {
-        init: function () {
-          OneSignal.init({
-            appId: "0d23ba6c-75f0-42e9-bc76-d484d6ad5d36",
-            allowLocalhostAsSecureOrigin: true
-          });
-          
-          // Solicita permisos al usuario para notificaciones push
-          OneSignal.Slidedown.promptPush();
-        }
-      };
-      
-      // Ejecuta cuando el SDK esté cargado
-      if (window.OneSignal) {
-        OneSignal.ready(window.OneSignalSDK.init);
-      }
-    </script>
-
 <style>
     * {
         margin: 0;
@@ -2828,11 +2807,7 @@ document
 
 initializeApp();
 
-
-/* ============================================================
-   BOTÓN DE PRUEBA ONESIGNAL
-   ============================================================ */
-
+// Función para enviar notificación de prueba
 function sendTestNotification() {
   OneSignal.push(function() {
     OneSignal.sendSelfNotification({
@@ -2860,12 +2835,8 @@ function sendTestNotification() {
   z-index: 9999;
   box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
   font-size: 14px;
-  transition: all 0.3s ease;
-"
-onmouseover="this.style.background='#be123c'; this.style.transform='scale(1.05)'"
-onmouseout="this.style.background='#ec4899'; this.style.transform='scale(1)'"
->
-  🧪 Prueba OneSignal
+">
+  🧪 Prueba
 </button>
 
 </body>
