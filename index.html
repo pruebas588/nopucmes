@@ -576,6 +576,243 @@
             flex-direction: row;
         }
     }
+
+    /* ==========================================================
+       REDISEÑO VISUAL (solo aspecto: no cambia IDs, clases ni JS)
+       ========================================================== */
+    :root {
+        --ink: #1f2937;
+        --muted: #6b7280;
+        --soft: #f8fafc;
+        --line: rgba(15, 23, 42, .08);
+        --shadow: 0 10px 30px -12px rgba(15, 23, 42, .18);
+        --shadow-hover: 0 18px 36px -14px rgba(15, 23, 42, .25);
+    }
+
+    body {
+        font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        color: var(--ink);
+        padding: 20px 16px 40px;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+        max-width: 520px;
+    }
+
+    /* Cabecera con degradado y un círculo decorativo */
+    .header {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        color: #fff;
+        border-radius: 22px;
+        padding: 22px 20px;
+        margin-bottom: 16px;
+        text-align: left;
+        box-shadow: var(--shadow);
+    }
+
+    .header::after {
+        content: "";
+        position: absolute;
+        right: -40px;
+        top: -40px;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, .15);
+        pointer-events: none;
+    }
+
+    .header h1 {
+        color: #fff;
+        font-size: 26px;
+        letter-spacing: -.3px;
+        margin-bottom: 4px;
+    }
+
+    .user-info {
+        color: rgba(255, 255, 255, .88);
+    }
+
+    .user-info strong {
+        color: #fff;
+    }
+
+    /* Pestañas como píldora flotante */
+    .tabs {
+        position: sticky;
+        top: 8px;
+        z-index: 50;
+        background: rgba(255, 255, 255, .78);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+        padding: 6px;
+        gap: 6px;
+        margin-bottom: 18px;
+    }
+
+    .tab-btn {
+        border-radius: 16px;
+        padding: 11px 6px;
+        font-size: 13px;
+        background: transparent;
+        color: var(--muted);
+        transition: background .2s, color .2s, box-shadow .2s;
+    }
+
+    .tab-btn:hover {
+        color: var(--ink);
+    }
+
+    .tab-btn.active {
+        box-shadow: 0 8px 18px -8px var(--primary-color);
+    }
+
+    /* Tarjetas */
+    .card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 18px;
+        margin-bottom: 14px;
+        box-shadow: var(--shadow);
+        transition: transform .2s, box-shadow .2s;
+    }
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+    }
+
+    .card-title {
+        font-size: 17px;
+        letter-spacing: -.2px;
+    }
+
+    .card-details {
+        font-size: 13.5px;
+        color: var(--muted);
+    }
+
+    .card-details strong {
+        color: var(--ink);
+    }
+
+    .status-badge {
+        border-radius: 999px;
+        padding: 5px 11px;
+        font-size: 11px;
+        letter-spacing: .2px;
+    }
+
+    .card-actions {
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    .btn-small {
+        border-radius: 12px;
+        padding: 10px;
+        font-size: 12px;
+        transition: filter .2s, transform .1s;
+    }
+
+    .btn-small:hover {
+        filter: brightness(.97);
+    }
+
+    .btn-small:active {
+        transform: scale(.98);
+    }
+
+    .btn-new {
+        border-radius: 16px;
+        padding: 16px;
+        margin-bottom: 18px;
+        box-shadow: 0 12px 24px -12px var(--primary-color);
+        transition: transform .15s, box-shadow .15s;
+    }
+
+    .btn-new:hover {
+        transform: translateY(-1px);
+    }
+
+    .btn-new:active {
+        transform: scale(.99);
+    }
+
+    .empty-state {
+        background: rgba(255, 255, 255, .6);
+        border: 1.5px dashed rgba(15, 23, 42, .15);
+        border-radius: 22px;
+        padding: 40px 20px;
+    }
+
+    /* Modales */
+    .modal {
+        background: rgba(15, 23, 42, .45);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+        border-radius: 28px;
+        box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .35);
+    }
+
+    .modal-title {
+        font-size: 21px;
+        letter-spacing: -.2px;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        border: 1.5px solid var(--line);
+        border-radius: 12px;
+        background: var(--soft);
+        transition: border-color .2s, box-shadow .2s;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-color) 18%, transparent);
+    }
+
+    .option-btn {
+        border: 1.5px solid var(--line);
+        border-radius: 12px;
+        background: var(--soft);
+        transition: background .2s, border-color .2s;
+    }
+
+    .option-btn.selected {
+        background: color-mix(in srgb, var(--primary-color) 12%, #fff);
+    }
+
+    .btn-submit {
+        border-radius: 14px;
+        padding: 15px;
+        box-shadow: 0 12px 24px -12px var(--primary-color);
+    }
+
+    /* Cerrar sesión: píldora legible dentro de la cabecera */
+    .header .logout {
+        display: inline-block;
+        margin: 12px 0 0;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, .22);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 600;
+    }
 </style>
 
 <!-- ONESIGNAL: NO TOCAR -->
