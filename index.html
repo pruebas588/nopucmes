@@ -2413,6 +2413,26 @@ function setupRealtime() {
 
 const escHtml = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const isoDia = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const hoyStr = () => isoDia(new Date());
+
+// Borra la cita o petición de la base de datos (la ven los dos)
+async function deleteProposal(id) {
+
+    if (!confirm('¿Eliminar esta cita? Desaparecerá para los dos y no se puede deshacer.')) return;
+
+    const { error } = await supabaseClient
+        .from('proposals')
+        .delete()
+        .eq('id', id);
+
+    if (error) {
+        console.error('Error eliminando propuesta:', error);
+        alert('No se ha podido eliminar.');
+        return;
+    }
+
+    await loadProposals();
+}
 
 function renderReminders() {
 
@@ -3362,7 +3382,8 @@ function renderProposals() {
     allProposals.filter(
         p =>
             p.from === currentUser &&
-            p.status !== 'cancelled'
+            p.status !== 'cancelled' &&
+            p.date >= hoyStr()
     );
 
 
@@ -3500,6 +3521,13 @@ function renderProposals() {
                         onclick="rejectProposal(${p.id})"
                     >
                         ❌ Rechazar
+                    </button>
+
+                    <button
+                        class="btn-small btn-cancel"
+                        onclick="deleteProposal(${p.id})"
+                    >
+                        🗑️ Eliminar
                     </button>
 
                 </div>
@@ -3782,7 +3810,18 @@ function renderProposals() {
 
 
                 ${
-                    p.from === currentUser
+                    p.date < hoyStr()
+                        ? `
+                            <div class="card-actions">
+                                <button
+                                    class="btn-small btn-cancel"
+                                    onclick="deleteProposal(${p.id})"
+                                >
+                                    🗑️ Eliminar
+                                </button>
+                            </div>
+                        `
+                    : p.from === currentUser
                         ? `
                             <div class="card-actions">
 
