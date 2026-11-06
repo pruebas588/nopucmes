@@ -813,6 +813,241 @@
         font-size: 12px;
         font-weight: 600;
     }
+
+    /* ==========================================================
+       ELEGANTE MINIMAL (capa final, sustituye a lo anterior)
+       ========================================================== */
+    body {
+        background: #f7f6f3;
+    }
+
+    .header {
+        background: #fff;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        box-shadow: none;
+        border-radius: 20px;
+        padding: 22px 22px 20px;
+    }
+
+    .header::after {
+        display: none;
+    }
+
+    .header h1 {
+        color: var(--ink);
+        font-size: 24px;
+        font-weight: 600;
+        letter-spacing: -.02em;
+    }
+
+    .user-info {
+        color: var(--muted);
+    }
+
+    .user-info strong {
+        color: var(--ink);
+    }
+
+    .header .logout {
+        background: transparent;
+        color: var(--muted);
+        border: 1px solid var(--line);
+        font-weight: 500;
+    }
+
+    .tabs {
+        background: #fff;
+        box-shadow: none;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 4px;
+        gap: 4px;
+    }
+
+    .tab-btn {
+        border-radius: 10px;
+        font-size: 12.5px;
+        font-weight: 500;
+        padding: 10px 4px;
+    }
+
+    .tab-btn.active {
+        background: var(--ink);
+        color: #fff;
+        box-shadow: none;
+    }
+
+    .card {
+        box-shadow: none;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px 20px;
+    }
+
+    .card:hover {
+        transform: none;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, .04), 0 10px 24px -16px rgba(15, 23, 42, .3);
+    }
+
+    .card-title {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .btn-new {
+        background: var(--ink);
+        box-shadow: none;
+        border-radius: 14px;
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .btn-new:hover {
+        background: #111827;
+        transform: none;
+    }
+
+    .btn-small {
+        border-radius: 10px;
+    }
+
+    /* Encabezados de sección (Próximas, Hechas, Por hacer…) */
+    .section-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 22px 2px 10px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        color: var(--muted);
+    }
+
+    .section-label span {
+        background: #ece9e3;
+        color: var(--ink);
+        border-radius: 999px;
+        padding: 1px 8px;
+        font-size: 11px;
+        letter-spacing: 0;
+    }
+
+    /* Recordatorios */
+    #reminders {
+        margin-bottom: 14px;
+    }
+
+    .reminders {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px 18px;
+    }
+
+    .reminders .section-label {
+        margin: 0 0 8px;
+    }
+
+    .reminders ul {
+        list-style: none;
+        display: grid;
+        gap: 6px;
+        font-size: 14px;
+        color: var(--ink);
+    }
+
+    .reminders li b {
+        font-weight: 600;
+        color: var(--accent-color);
+    }
+
+    /* Planes */
+    .plan-form {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+
+    .plan-form .form-input {
+        flex: 1;
+        border-radius: 12px;
+    }
+
+    .plan-add {
+        border: none;
+        background: var(--ink);
+        color: #fff;
+        border-radius: 12px;
+        padding: 0 18px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    .plan-list {
+        list-style: none;
+        display: grid;
+        gap: 8px;
+    }
+
+    .plan-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px 14px;
+    }
+
+    .plan-check {
+        flex: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 1.5px solid #cfcac2;
+        background: #fff;
+        color: #fff;
+        font-size: 12px;
+        display: grid;
+        place-items: center;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .plan-item.done .plan-check {
+        background: var(--ink);
+        border-color: var(--ink);
+    }
+
+    .plan-title {
+        flex: 1;
+        min-width: 0;
+        font-size: 15px;
+        overflow-wrap: anywhere;
+    }
+
+    .plan-item.done .plan-title {
+        color: var(--muted);
+        text-decoration: line-through;
+    }
+
+    .plan-del {
+        flex: none;
+        border: none;
+        background: none;
+        color: #9ca3af;
+        font-size: 20px;
+        line-height: 1;
+        padding: 2px 4px;
+        cursor: pointer;
+    }
+
+    .plan-del:hover {
+        color: #b91c1c;
+    }
 </style>
 
 <!-- ONESIGNAL: NO TOCAR -->
@@ -971,6 +1206,8 @@
     </div>
 
 
+    <div id="reminders"></div>
+
     <div class="tabs">
 
         <button
@@ -992,6 +1229,13 @@
             onclick="switchTab('confirmed', this)"
         >
             Confirmadas 📅
+        </button>
+
+        <button
+            class="tab-btn"
+            onclick="switchTab('plans', this); loadPlans()"
+        >
+            Planes 🗺️
         </button>
 
     </div>
@@ -1037,6 +1281,36 @@
     >
 
         <div id="confirmedContainer"></div>
+
+    </div>
+
+
+    <div
+        id="plans"
+        class="section"
+    >
+
+        <form
+            class="plan-form"
+            id="planForm"
+            onsubmit="addPlan(event)"
+        >
+            <input
+                class="form-input"
+                id="planInput"
+                maxlength="120"
+                autocomplete="off"
+                placeholder="Ej: cena japonesa, ir a la playa…"
+            >
+            <button
+                class="plan-add"
+                type="submit"
+            >
+                Añadir
+            </button>
+        </form>
+
+        <div id="plansContainer"></div>
 
     </div>
 
@@ -2133,6 +2407,152 @@ function setupRealtime() {
    TABS
    ============================================================ */
 
+/* ============================================================
+   RECORDATORIOS (citas de hoy y mañana y peticiones sin responder)
+   ============================================================ */
+
+const escHtml = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const isoDia = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+
+function renderReminders() {
+
+    const box = document.getElementById('reminders');
+    if (!box || !currentUser) return;
+
+    const hoy = isoDia(new Date());
+    const manana = isoDia(new Date(Date.now() + 864e5));
+
+    const citas = allProposals
+        .filter(p => p.status === 'accepted' && (p.date === hoy || p.date === manana))
+        .sort((a, b) => a.date.localeCompare(b.date) || String(a.time).localeCompare(String(b.time)));
+
+    const pendientes = allProposals.filter(p => p.for === currentUser && p.status === 'pending');
+
+    const items = citas.map(p =>
+        `<li><b>${p.date === hoy ? 'Hoy' : 'Mañana'}</b> · ${escHtml(p.type)} · ${escHtml(p.time)}</li>`
+    );
+    if (pendientes.length) {
+        items.push(`<li><b>${pendientes.length}</b> ${pendientes.length === 1 ? 'petición' : 'peticiones'} sin responder</li>`);
+    }
+
+    box.innerHTML = items.length
+        ? `<section class="reminders"><h3 class="section-label">Recordatorios</h3><ul>${items.join('')}</ul></section>`
+        : '';
+}
+
+
+/* ============================================================
+   PLANES (lista compartida en Supabase, tabla «plans»)
+   ============================================================ */
+
+let allPlans = [];
+
+async function loadPlans() {
+
+    const { data, error } = await supabaseClient
+        .from('plans')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error('Error cargando planes:', error);
+        renderPlans(true);
+        return;
+    }
+
+    allPlans = data;
+    renderPlans();
+}
+
+async function addPlan(e) {
+
+    e.preventDefault();
+
+    const input = document.getElementById('planInput');
+    const title = input.value.trim();
+    if (!title) return;
+
+    const { error } = await supabaseClient
+        .from('plans')
+        .insert({ title, done: false, created_by: currentUser });
+
+    if (error) {
+        console.error('Error guardando plan:', error);
+        alert('No se ha podido guardar el plan.');
+        return;
+    }
+
+    input.value = '';
+    await loadPlans();
+}
+
+async function togglePlan(id) {
+
+    const p = allPlans.find(x => x.id === id);
+    if (!p) return;
+
+    const { error } = await supabaseClient
+        .from('plans')
+        .update({ done: !p.done })
+        .eq('id', id);
+
+    if (error) {
+        console.error('Error actualizando plan:', error);
+        alert('No se ha podido actualizar el plan.');
+        return;
+    }
+
+    await loadPlans();
+}
+
+async function deletePlan(id) {
+
+    if (!confirm('¿Quitar este plan de la lista?')) return;
+
+    const { error } = await supabaseClient
+        .from('plans')
+        .delete()
+        .eq('id', id);
+
+    if (error) {
+        console.error('Error borrando plan:', error);
+        alert('No se ha podido quitar el plan.');
+        return;
+    }
+
+    await loadPlans();
+}
+
+function renderPlans(fallo = false) {
+
+    const box = document.getElementById('plansContainer');
+    if (!box) return;
+
+    if (fallo) {
+        box.innerHTML = `<div class="empty-state"><p>No se pueden cargar los planes. Revisa la tabla «plans» en Supabase.</p></div>`;
+        return;
+    }
+
+    const fila = p => `
+        <li class="plan-item ${p.done ? 'done' : ''}">
+            <button class="plan-check" onclick="togglePlan(${p.id})" aria-pressed="${!!p.done}" aria-label="${p.done ? 'Marcar como pendiente' : 'Marcar como hecho'}">${p.done ? '✓' : ''}</button>
+            <span class="plan-title">${escHtml(p.title)}</span>
+            <button class="plan-del" onclick="deletePlan(${p.id})" aria-label="Quitar">×</button>
+        </li>`;
+
+    const pendientes = allPlans.filter(p => !p.done);
+    const hechos = allPlans.filter(p => p.done);
+
+    box.innerHTML =
+        (pendientes.length
+            ? `<h3 class="section-label">Por hacer <span>${pendientes.length}</span></h3><ul class="plan-list">${pendientes.map(fila).join('')}</ul>`
+            : `<div class="empty-state"><p>Nada por hacer. Añade una idea ✨</p></div>`) +
+        (hechos.length
+            ? `<h3 class="section-label">Hechos <span>${hechos.length}</span></h3><ul class="plan-list">${hechos.map(fila).join('')}</ul>`
+            : '');
+}
+
+
 function switchTab(
     tab,
     button
@@ -2909,6 +3329,7 @@ function getStatusEmoji(status) {
 function renderProposals() {
 
     if (!currentUser) return;
+    renderReminders();
 
 
     const requestsContainer =
@@ -2945,11 +3366,21 @@ function renderProposals() {
     );
 
 
-    const confirmed =
-        allProposals.filter(
-            p =>
-                p.status === 'accepted'
-        );
+    /* Citas aceptadas: primero las próximas (la más cercana arriba) y después las hechas (la más reciente arriba) */
+    const d0 = new Date();
+    const hoy = `${d0.getFullYear()}-${String(d0.getMonth() + 1).padStart(2, '0')}-${String(d0.getDate()).padStart(2, '0')}`;
+    const aceptadas = allProposals.filter(p => p.status === 'accepted');
+    const proximas = aceptadas
+        .filter(p => p.date >= hoy)
+        .sort((a, b) => a.date.localeCompare(b.date) || String(a.time).localeCompare(String(b.time)));
+    const hechas = aceptadas
+        .filter(p => p.date < hoy)
+        .sort((a, b) => b.date.localeCompare(a.date));
+    const confirmed = [...proximas, ...hechas];
+    // Encabezado de sección delante de la primera cita de cada grupo
+    const cabecera = {};
+    if (proximas.length) cabecera[proximas[0].id] = `<h3 class="section-label">Próximas <span>${proximas.length}</span></h3>`;
+    if (hechas.length) cabecera[hechas[0].id] = `<h3 class="section-label">Hechas <span>${hechas.length}</span></h3>`;
 
 
     /* ========================================================
@@ -3270,7 +3701,7 @@ function renderProposals() {
             confirmed
                 .map(
                     p => `
-
+            ${cabecera[p.id] || ''}
             <div class="card">
 
                 <div class="card-header">
